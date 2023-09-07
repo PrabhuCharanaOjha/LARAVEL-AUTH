@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\notifyMail;
+use Illuminate\Support\Facades\Mail;
 
 class superAdminController extends Controller
 {
@@ -14,7 +16,8 @@ class superAdminController extends Controller
     //     return view('super-admin.dashboard');
     // }
 
-    public function checkExistatnce($tableName, $condition){
+    public function checkExistatnce($tableName, $condition)
+    {
         $count = DB::table($tableName)->select('id')->where($condition)->get()->count(); //query builder method
         return $count;
     }
@@ -584,9 +587,9 @@ class superAdminController extends Controller
 
             $rowCount = $this->checkExistatnce("dynamic_table_details", ['name' => $request->name, 'status' => 1]);
 
-            if($rowCount > 0){
+            if ($rowCount > 0) {
                 $msg = 'fail';
-            }else{
+            } else {
                 DB::table('dynamic_table_details')->insertGetId([
                     'name' => $request->name,
                     'description' => json_encode($request->description),
@@ -647,4 +650,21 @@ class superAdminController extends Controller
     // ===============================================================
     // Dynamic Table Details CRUD end ================================
     // ===============================================================
+
+
+
+    public function plainTextMail()
+    {        
+        Mail::send([], [], function ($message) {
+            $message->to('prabhu.ojha.1997@gmail.com', 'W3SCHOOLS')->subject('test text email')->setBody('Hi, welcome user!');
+        });
+
+        return response()->json(['message' => 'success']);
+
+    }
+    public function htmlTextMail()
+    {
+        Mail::to('prabhu.ojha.1997@gmail.com')->send(new notifyMail('sir'));
+        return response()->json(['message' => 'success']);
+    }
 }

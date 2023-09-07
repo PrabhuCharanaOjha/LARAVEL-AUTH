@@ -33,6 +33,8 @@ Route::get('/viewGallery', [superAdminController::class, 'viewGallery'])->name('
 Route::get('/viewTeam', [superAdminController::class, 'viewTeam'])->name('viewTeam');
 Route::get('/viewTestimonial', [superAdminController::class, 'viewTestimonial'])->name('viewTestimonial');
 Route::get('/viewDynamicTableDetails', [superAdminController::class, 'viewDynamicTableDetails'])->name('viewDynamicTableDetails');
+Route::get('/plainTextMail', [superAdminController::class, 'plainTextMail'])->name('plainTextMail');
+Route::get('/htmlTextMail', [superAdminController::class, 'htmlTextMail'])->name('htmlTextMail');
 
 
 
