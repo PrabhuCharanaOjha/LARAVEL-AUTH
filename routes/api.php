@@ -20,9 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::get('/', function () { return view('index'); });
-// Route::get('/login', function () { return view('login'); })->name('loginpage');
-// Route::get('/registration', function () { return view('registration'); })->name('registrationpage');
 Route::post('/login', [authController::class, 'login'])->name('userLogin');
 Route::post('/register', [authController::class, 'registerUser'])->name('registration');
 Route::post('/getToken', [authController::class, 'getToken'])->name('getToken');
@@ -35,7 +32,6 @@ Route::get('/viewTestimonial', [superAdminController::class, 'viewTestimonial'])
 Route::get('/viewDynamicTableDetails', [superAdminController::class, 'viewDynamicTableDetails'])->name('viewDynamicTableDetails');
 Route::get('/plainTextMail', [superAdminController::class, 'plainTextMail'])->name('plainTextMail');
 Route::get('/htmlTextMail', [superAdminController::class, 'htmlTextMail'])->name('htmlTextMail');
-
 
 
 // supper admin routes
@@ -89,6 +85,4 @@ Route::group(['prefix' => 'super-admin', 'middleware' => ['auth:sanctum', 'isSup
     Route::Post('/deleteDynamicTableDetails', [superAdminController::class, 'deleteDynamicTableDetails'])->name('deleteDynamicTableDetails');
 
     Route::post('/logout', [authController::class, 'logout'])->name('logout');
-
-
 });
