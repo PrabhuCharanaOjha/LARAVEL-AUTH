@@ -95,10 +95,24 @@ class authController extends Controller
 
     public function logout(Request $request) 
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/');
+        try {
+
+            // ====================
+            // for web request
+            // ====================
+            // Auth::logout();
+            // $request->session()->invalidate();
+            // $request->session()->regenerateToken();
+
+            // ====================
+            // for api sanctum request
+            // ====================
+            $request->user()->tokens()->delete();
+            
+            return response()->json(['msg' => 'success']);    
+        } catch (\Exception $e) {
+            return response()->json(['msg' => 'fail', 'reason' => [$e->getMessage()]]);    
+        }
     }
 
 }

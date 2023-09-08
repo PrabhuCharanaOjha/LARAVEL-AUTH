@@ -20,9 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/login', [authController::class, 'login'])->name('userLogin');
-Route::post('/register', [authController::class, 'registerUser'])->name('registration');
-Route::post('/getToken', [authController::class, 'getToken'])->name('getToken');
+// Route::post('/login', [authController::class, 'login'])->name('userLogin');
+// Route::post('/register', [authController::class, 'registerUser'])->name('registration');
+// Route::post('/getToken', [authController::class, 'getToken'])->name('getToken');
 
 Route::get('/viewBanner', [superAdminController::class, 'viewBanner'])->name('viewBanner');
 Route::get('/viewEvent', [superAdminController::class, 'viewEvent'])->name('viewEvent');
@@ -84,5 +84,13 @@ Route::group(['prefix' => 'super-admin', 'middleware' => ['auth:sanctum', 'isSup
     Route::Post('/updateDynamicTableDetails', [superAdminController::class, 'updateDynamicTableDetails'])->name('updateDynamicTableDetails');
     Route::Post('/deleteDynamicTableDetails', [superAdminController::class, 'deleteDynamicTableDetails'])->name('deleteDynamicTableDetails');
 
+
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'isAdmin']], function(){
+    // Route::get('/logout', [authController::class, 'logout'])->name('logout');    
+});
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [authController::class, 'logout'])->name('logout');
 });

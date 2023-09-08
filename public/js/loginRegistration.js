@@ -65,7 +65,7 @@ function login(){
         var _token = $("input[name=_token]").val();
 
         $.ajax({
-            url:"/api/login",
+            url:"/login",
             data:{email:email, password:password, _token:_token},
             type:"POST",
             beforeSend: function(){
@@ -100,8 +100,8 @@ function logout(){
 		if (result.isConfirmed) {
             
             $.ajax({
-                url:"/api/login",
-                type:"POST",
+                url:"/api/logout",
+                type:"post",
                 headers:{
                     'Authorization': 'Bearer '+sessionStorage.getItem("token"),
                 },        
@@ -110,10 +110,14 @@ function logout(){
                 },
                 success: function(response)
                 {
-                    $("#loader").hide();
-                    sessionStorage.clear();
-                    location.href = '/';
                     // console.log(response);
+                    $("#loader").hide();
+                    if(response.msg == 'success'){
+                        sessionStorage.clear();
+                        location.href = '/';
+                    }else{
+                        errorMessageSwitAlert("Failed to Logout", "");
+                    }
                 }
             })
 		}

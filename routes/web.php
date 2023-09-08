@@ -18,6 +18,11 @@ Route::get('/', function () { return view('index'); });
 Route::get('/login', function () { return view('login'); })->name('loginpage');
 Route::get('/registration', function () { return view('registration'); })->name('registrationpage');
 
+Route::post('/login', [authController::class, 'login'])->name('userLogin');
+Route::post('/register', [authController::class, 'registerUser'])->name('registration');
+Route::post('/getToken', [authController::class, 'getToken'])->name('getToken');
+
+
 // supper admin routes
 Route::group(['prefix' => 'super-admin', 'middleware' => ['web', 'isSuperAdmin']], function () {
     Route::get('/dashboard', function () { return view('super-admin.dashboard'); })->name('superAdminDashboard');
@@ -30,4 +35,13 @@ Route::group(['prefix' => 'super-admin', 'middleware' => ['web', 'isSuperAdmin']
     Route::get('/dynamic/contact', function () { return view('super-admin.contactDynamic'); })->name('superAdminContact');
     Route::get('/dynamic/footer', function () { return view('super-admin.footerDynamic'); })->name('superAdminFooter');
     Route::get('/admin-permission', function () { return view('super-admin.adminPermission'); })->name('superAdminPermission');
+});
+
+
+Route::group(['prefix' => 'admin', 'middleware' => ['web', 'isAdmin']], function(){
+    Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('adminDashboard');
+});
+
+Route::group(['middleware' => ['web']], function () {
+    Route::post('/logout', [authController::class, 'logout'])->name('logout');
 });
