@@ -32,6 +32,7 @@ Route::get('/viewTestimonial', [superAdminController::class, 'viewTestimonial'])
 Route::get('/viewDynamicTableDetails', [superAdminController::class, 'viewDynamicTableDetails'])->name('viewDynamicTableDetails');
 Route::get('/plainTextMail', [superAdminController::class, 'plainTextMail'])->name('plainTextMail');
 Route::get('/htmlTextMail', [superAdminController::class, 'htmlTextMail'])->name('htmlTextMail');
+Route::get('/sendAttachedMail', [superAdminController::class, 'sendAttachedMail'])->name('sendAttachedMail');
 
 
 // supper admin routes

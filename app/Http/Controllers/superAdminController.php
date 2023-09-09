@@ -654,17 +654,25 @@ class superAdminController extends Controller
 
 
     public function plainTextMail()
-    {        
+    {
         Mail::send([], [], function ($message) {
             $message->to('prabhu.ojha.1997@gmail.com', 'W3SCHOOLS')->subject('test text email')->setBody('Hi, welcome user!');
         });
 
         return response()->json(['message' => 'success']);
-
     }
     public function htmlTextMail()
     {
         Mail::to('prabhu.ojha.1997@gmail.com')->send(new notifyMail('sir'));
+        return response()->json(['message' => 'success']);
+    }
+    public function sendAttachedMail()
+    {
+        Mail::send([], [], function ($message) {
+            $message->to('prabhu.ojha.1997@gmail.com', 'W3SCHOOLS')->subject('test text email')->setBody('Hi, welcome user!');
+            $message->attach('C:\xampp\htdocs\PHP ALL PROJECT\LARAVEL TEST Project\LARAVEL-AUTH\public\images\common_files\no-image-available.jpg');
+        });
+
         return response()->json(['message' => 'success']);
     }
 }
