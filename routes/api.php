@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adminController;
 use App\Http\Controllers\authController;
 use App\Http\Controllers\superAdminController;
 use Illuminate\Http\Request;
@@ -91,6 +92,10 @@ Route::group(['prefix' => 'super-admin', 'middleware' => ['auth:sanctum', 'isSup
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'isAdmin']], function(){
+    Route::post('/addProductDetails', [adminController::class, 'addProductDetails'])->name('addProductDetails');
+    Route::get('/viewProductDetails', [adminController::class, 'viewProductDetails'])->name('viewProductDetails');
+    Route::post('/updateProductDetails', [adminController::class, 'updateProductDetails'])->name('updateProductDetails');
+    Route::post('/deleteProductDetails', [adminController::class, 'deleteProductDetails'])->name('deleteProductDetails');
     // Route::get('/logout', [authController::class, 'logout'])->name('logout');    
 });
 

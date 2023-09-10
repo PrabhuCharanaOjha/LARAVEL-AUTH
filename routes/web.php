@@ -40,6 +40,7 @@ Route::group(['prefix' => 'super-admin', 'middleware' => ['web', 'isSuperAdmin']
 
 Route::group(['prefix' => 'admin', 'middleware' => ['web', 'isAdmin']], function(){
     Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('adminDashboard');
+    Route::get('/productDetails', function () { return view('admin.productDetails'); })->name('adminProductDetails');
 });
 
 Route::group(['middleware' => ['web']], function () {

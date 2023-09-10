@@ -20,12 +20,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('superAdminCreateAdmin') }}" class="nav-link text-light {{ Request::routeIs('superAdminCreateAdmin') ? 'active' : '' }}" aria-current="page">
+                                <a href="{{ route('adminProductDetails') }}" class="nav-link text-light {{ Request::routeIs('adminProductDetails') ? 'active' : '' }}" aria-current="page">
                                     <i class="fa fa-user-plus" aria-hidden="true"></i>
-                                    Create Admin
+                                    Add Product Details
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <button class="btn btn-toggle align-items-center rounded collapsed nav-link text-light" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="true">
                                     <i class="fa fa-crosshairs" aria-hidden="true"></i>
                                     Dynamic
@@ -41,7 +41,7 @@
                                         <li><a href="{{ route('superAdminFooter') }}" class="nav-link rounded text-light ms-4 {{ Request::routeIs('superAdminFooter') ? 'active' : '' }}">Footer Dynamic</a></li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> -->
 
                         </ul>
                     </div>
