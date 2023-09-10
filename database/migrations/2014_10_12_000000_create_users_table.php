@@ -22,9 +22,11 @@ class CreateUsersTable extends Migration
             $table->bigInteger('mobile');
             $table->integer('age');
             $table->string('userType');
-            $table->text('profilePicture');
+            $table->text('profilePicture')->nullable();
             $table->text('description')->nullable();
             $table->string('status');
+            // $table->softDeletes();
+            $table->timestamp('deleted_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

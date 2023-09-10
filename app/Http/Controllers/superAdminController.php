@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\User;
+// use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\notifyMail;
 use Illuminate\Support\Facades\Mail;
+use App\Models\User;
 
 class superAdminController extends Controller
 {
@@ -71,8 +73,8 @@ class superAdminController extends Controller
     public function viewAllAdmin()
     {
         try {
-            // $allUsers = user::where('userType', '!=', 1)->get(); //Eloquent method
-            $allUsers = DB::table('users')->select('*')->where('userType', 2)->where('status', 1)->get(); //query builder method
+            // $allUsers = user::where('userType', '!=', 1)->get(); //Eloquent method            
+            $allUsers = DB::table('users')->select('*')->where(['userType' => 2, 'status' => 1, 'deleted_at' => null])->get(); //query builder method
             foreach ($allUsers as $data) {
                 // $data['imageUrl'] = asset('uploadDocuments/users/' . $data['profilePicture']); //Eloquent method
                 $data->imageUrl = asset('uploadDocuments/users/' . $data->profilePicture); //query builder method
@@ -130,14 +132,25 @@ class superAdminController extends Controller
     public function deleteAdmin(Request $request)
     {
         try {
-            user::where('id', $request->id)->update([
-                'status' => 0
-            ]);
+            user::where('id', $request->id)->delete();
             return response()->json(['msg' => 'success']);
         } catch (\Exception $e) {
             return response()->json(['msg' => 'fail', 'reason' =>  $e->getMessage()]);
         }
     }
+
+    public function restoreAdmin(Request $request)
+    {
+        try {
+            User::withTrashed()->find($request->id)->restore();
+            // $data = user::withTrashed()->get();          
+            // user::onlyTrashed()->restore();            
+            return response()->json(['msg' => 'success']);
+        } catch (\Exception $e) {
+            return response()->json(['msg' => 'fail', 'reason' =>  $e->getMessage()]);
+        }
+    }
+
 
     // ===============================================================
     // admin CRUD end ================================================
@@ -653,6 +666,10 @@ class superAdminController extends Controller
 
 
 
+    // ===============================================================
+    // send email section start       ================================
+    // ===============================================================
+
     public function plainTextMail()
     {
         Mail::send([], [], function ($message) {
@@ -675,4 +692,41 @@ class superAdminController extends Controller
 
         return response()->json(['message' => 'success']);
     }
+    // ===============================================================
+    // send email section end         ================================
+    // ===============================================================
+
+
+    // ===============================================================
+    // send whatsSMS using curl start ================================
+    // ===============================================================
+    public function sendWhatsSMSUsingCurl(Request $request)
+    {
+        // Data to be sent in the POST request
+        $data = [
+            'action' => 'send_template_sms',
+            'phone' => $request->phone,
+            'template_name' => $request->template_name,
+            'body_text' => $request->body_text,
+        ];
+        // $endpoint = 'www.url.com';
+        $ch = curl_init($request->endpoint);
+
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            return response()->json(['message' => 'cURL error: ' . curl_error($ch)], 500);
+        }
+
+        curl_close($ch);
+        return response()->json(['message' => 'Data sent successfully', 'response' => json_decode($response, true)]);
+    }
+    // ===============================================================
+    // send whatsSMS using curl end   ================================
+    // ===============================================================
+
 }

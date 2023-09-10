@@ -33,6 +33,8 @@ Route::get('/viewDynamicTableDetails', [superAdminController::class, 'viewDynami
 Route::get('/plainTextMail', [superAdminController::class, 'plainTextMail'])->name('plainTextMail');
 Route::get('/htmlTextMail', [superAdminController::class, 'htmlTextMail'])->name('htmlTextMail');
 Route::get('/sendAttachedMail', [superAdminController::class, 'sendAttachedMail'])->name('sendAttachedMail');
+Route::Post('/super-admin/restoreAdmin', [superAdminController::class, 'restoreAdmin'])->name('restoreAdmin');
+Route::Post('/super-admin/sendWhatsSMSUsingCurl', [superAdminController::class, 'sendWhatsSMSUsingCurl'])->name('sendWhatsSMSUsingCurl');
 
 
 // supper admin routes

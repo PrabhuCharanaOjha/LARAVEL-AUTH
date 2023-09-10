@@ -216,6 +216,7 @@ function deleteData(id, name){
                 success: function (response) {
                     $(".loader").hide();
                     console.log(response);
+                    viewData();
                 },
                 // error: function (jqXHR, textStatus, errorThrown) {
                 //     console.log("AJAX Error:", jqXHR, textStatus, errorThrown);

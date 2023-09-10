@@ -24,6 +24,7 @@ class UserFactory extends Factory
             'age' => $this->faker->numberBetween(20, 30),
             'userType' => '2',
             'description' => $this->faker->unique()->paragraph(),
+            'status' => 1,
             // 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             // 'remember_token' => Str::random(10),
         ];
