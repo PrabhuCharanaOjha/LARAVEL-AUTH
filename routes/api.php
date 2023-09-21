@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::post('/getToken', [authController::class, 'getToken'])->name('getToken');
 
 Route::get('/viewBanner', [superAdminController::class, 'viewBanner'])->name('viewBanner');
+Route::get('/viewProductDetail', [adminController::class, 'viewProductDetails'])->name('viewProductDetail');
 Route::get('/viewEvent', [superAdminController::class, 'viewEvent'])->name('viewEvent');
 Route::get('/viewGallery', [superAdminController::class, 'viewGallery'])->name('viewGallery');
 Route::get('/viewTeam', [superAdminController::class, 'viewTeam'])->name('viewTeam');
@@ -89,6 +90,7 @@ Route::group(['prefix' => 'super-admin', 'middleware' => ['auth:sanctum', 'isSup
     Route::Post('/deleteDynamicTableDetails', [superAdminController::class, 'deleteDynamicTableDetails'])->name('deleteDynamicTableDetails');
 
 
+    Route::Post('/testDataAdd', [superAdminController::class, 'testDataAdd'])->name('testDataAdd');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'isAdmin']], function(){

@@ -35,6 +35,7 @@ Route::group(['prefix' => 'super-admin', 'middleware' => ['web', 'isSuperAdmin']
     Route::get('/dynamic/contact', function () { return view('super-admin.contactDynamic'); })->name('superAdminContact');
     Route::get('/dynamic/footer', function () { return view('super-admin.footerDynamic'); })->name('superAdminFooter');
     Route::get('/admin-permission', function () { return view('super-admin.adminPermission'); })->name('superAdminPermission');
+    Route::get('/test', function () { return view('super-admin.test'); })->name('superAdminTest');
 });
 
 

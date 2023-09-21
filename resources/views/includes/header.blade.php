@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/owlcarasoul/animate.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <script src="{{ asset('commonJS/jquery-3.6.4.js') }}"></script>
+    <!-- <script src="{{ asset('commonJS/jquery.validate.min.js') }}"></script> -->
     <title>PROJECT ECOMMERCE</title>
 </head>
 

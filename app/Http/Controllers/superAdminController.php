@@ -347,7 +347,7 @@ class superAdminController extends Controller
             $uploadFile = 'FILE_' . time() . $image->getClientOriginalExtension();
             $image->move(public_path('uploadDocuments/uploadFile'), $uploadFile);
 
-            DB::table('galleries')->insertGetId([
+            DB::table('galleries')->insert([
                 'name' => $request->name,
                 'description' => $request->description,
                 'uploadFile' => $uploadFile,
@@ -728,5 +728,34 @@ class superAdminController extends Controller
     // ===============================================================
     // send whatsSMS using curl end   ================================
     // ===============================================================
+
+
+    public function testDataAdd(Request $request)
+    {
+        try {
+            $id = DB::table('dynamic_table_details')->insertGetId([
+                'name' => $request->userName,
+                'description' => json_encode($request->mainArr),
+                'status' => 1,
+            ]);
+
+            $mainArr = json_decode($request->mainArr, true);
+            // print_r($mainArr);
+
+            for ($i=0; $i < count($mainArr); $i++) { 
+                // print_r($mainArr[$i]['startDate']);
+                DB::table('dynamic_table_details')->insertGetId([
+                    'name' => $id,
+                    'description' => json_encode($mainArr[$i]['startDate']),
+                    'status' => 1,
+                ]);
+                
+            }
+
+            return response()->json(['msg' => 'success', 'id' => $id]);
+        } catch (\Exception $e) {
+            return response()->json(['msg' => 'fail', 'reason' => [$e->getMessage()]]);
+        }
+    }
 
 }

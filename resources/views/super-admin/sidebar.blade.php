@@ -48,6 +48,12 @@
                                     Sidebar Permission
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('superAdminTest') }}" class="nav-link text-light {{ Request::routeIs('superAdminTest') ? 'active' : '' }}" aria-current="page">
+                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    Super Admin Test
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

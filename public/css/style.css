@@ -1,3 +1,6 @@
+.error {
+    color: red;
+}
 .loader-container {
     position: fixed;
     top: 0;
@@ -676,5 +679,3 @@
 }
 
 /* our team end */
-
-
